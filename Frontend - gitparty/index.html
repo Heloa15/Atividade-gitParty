@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link rel="stylesheet" href="detalhes.html">
+
+<title>Gestão de Eventos</title>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<style>
+
+body{
+    font-family:'Plus Jakarta Sans',sans-serif;
+}
+
+.material-symbols-outlined{
+    font-variation-settings:'FILL'0,'wght'400,'GRAD'0,'opsz'24;
+}
+
+.modal-overlay{
+    transition:opacity 0.2s ease-in-out;
+}
+
+.modal-content{
+    transition:transform 0.2s ease-in-out;
+}
+
+.hidden-modal{
+    opacity:0;
+    pointer-events:none;
+}
+
+.hidden-modal .modal-content{
+    transform:scale(0.95);
+}
+
+</style>
+
+</head>
+
+<body class="bg-surface text-on-surface">
+
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-12 h-20 bg-white/80 backdrop-blur-md border-b">
+
+<div class="flex items-center">
+<span class="text-3xl font-bold text-blue-600">
+Lista de Eventos - Git Party
+</span>
+</div>
+
+<div class="flex-1 max-w-lg mx-6 hidden md:block">
+
+<div class="relative flex items-center h-12 bg-gray-100 rounded-xl px-4">
+
+<span class="material-symbols-outlined text-gray-500">
+search
+</span>
+
+<input
+id="buscarEvento"
+class="bg-transparent border-none focus:ring-0 w-full ml-2"
+placeholder="Buscar eventos..."
+type="text"
+/>
+
+</div>
+</div>
+
+<button
+class="bg-blue-600 text-white px-6 h-12 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-700 transition"
+onclick="toggleModal(true)"
+>
+
+<span class="material-symbols-outlined">
+add
+</span>
+
++ Novo Evento
+
+</button>
+
+</header>
+
+<main class="min-h-screen pt-32 pb-20 px-12 bg-gradient-to-br from-blue-100 via-white to-yellow-100">
+
+<div class="max-w-7xl mx-auto">
+
+<div class="mb-10">
+
+<h1 class="text-5xl font-extrabold text-gray-800 mb-2">
+Próximos Eventos
+</h1>
+
+<p class="text-lg text-gray-500">
+Gerencie suas experiências e acompanhe os detalhes em tempo real.
+</p>
+
+</div>
+
+<!-- LISTA EVENTOS -->
+<div id="listaEventos" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+</div>
+
+</div>
+
+</main>
+
+<footer class="w-full py-12 px-12 bg-gray-100 border-t">
+
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+
+<div class="flex flex-col items-center md:items-start">
+
+<span class="text-xl font-bold">
+Lista de Eventos
+</span>
+
+<p class="text-gray-500">
+© 2024 Gestão de Eventos.
+</p>
+
+</div>
+
+</div>
+
+</footer>
+
+<!-- MODAL -->
+<div class="fixed inset-0 z-50 flex items-center justify-center hidden-modal modal-overlay" id="eventModal">
+
+<div
+class="absolute inset-0 bg-black/40 backdrop-blur-sm"
+onclick="toggleModal(false)"
+></div>
+
+<div class="bg-white w-full max-w-lg mx-4 rounded-2xl overflow-hidden shadow-2xl relative z-10 modal-content">
+
+<div class="p-8">
+
+<div class="flex justify-between items-center mb-8">
+
+<h2 class="text-3xl font-bold">
+Novo Evento
+</h2>
+
+<button
+class="text-gray-500 hover:text-black"
+onclick="toggleModal(false)"
+>
+
+<span class="material-symbols-outlined">
+close
+</span>
+
+</button>
+
+</div>
+
+<form id="cadEvento" class="space-y-6">
+
+<div class="flex flex-col gap-2">
+
+<label class="font-bold">
+Nome do Evento
+</label>
+
+<input
+name="titulo"
+class="h-12 rounded-xl border px-4"
+placeholder="Ex: Conferência de Tecnologia"
+required
+type="text"
+/>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<div class="flex flex-col gap-2">
+
+<label class="font-bold">
+Data e Hora
+</label>
+
+<input
+name="data"
+class="h-12 rounded-xl border px-4"
+required
+type="datetime-local"
+/>
+
+</div>
+
+<div class="flex flex-col gap-2">
+
+<label class="font-bold">
+Local
+</label>
+
+<input
+name="local"
+class="h-12 rounded-xl border px-4"
+placeholder="Ex: São Paulo, SP"
+required
+type="text"
+/>
+
+</div>
+
+</div>
+
+<div class="flex flex-col gap-2">
+
+<label class="font-bold">
+Descrição
+</label>
+
+<textarea
+name="descricao"
+class="rounded-xl border px-4 py-3 resize-none"
+placeholder="Conte mais sobre o evento..."
+rows="3"
+></textarea>
+
+</div>
+
+<div class="flex justify-end gap-4 pt-4">
+
+<button
+class="px-8 h-12 rounded-xl text-gray-500 hover:bg-gray-100"
+onclick="toggleModal(false)"
+type="button"
+>
+Cancelar
+</button>
+
+<button
+class="px-8 h-12 rounded-xl bg-blue-600 text-white hover:bg-blue-700"
+type="submit"
+>
+Salvar
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

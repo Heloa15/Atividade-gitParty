@@ -1,0 +1,5 @@
+backend-aula -models 
+
+backend-aula -insomnia
+
+npm run dev
