@@ -6,7 +6,9 @@ Sistema web para gerenciamento de eventos desenvolvido com HTML, TailwindCSS e J
 
 # 📸 Preview da Interface
 
-![Preview da aplicação](./print.png)
+![Preview da aplicação]
+
+
 
 ---
 
